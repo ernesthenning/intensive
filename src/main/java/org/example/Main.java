@@ -1,11 +1,21 @@
 package org.example;
 
+import org.example.connection.ConnectionUtil;
+import org.example.model.User;
+import org.example.repository.UserRepository;
+import org.example.service.UserService;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public Main() throws SQLException, ClassNotFoundException {
+    }
+
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         sortTest();
         addTest();
         addAllTest();
@@ -13,7 +23,12 @@ public class Main {
         removeObjectTest();
         getTest();
         clearTest();
+        UserRepository repository = new UserRepository();
+        UserService service = new UserService(repository);
+        User user = service.get(100001);
+        System.out.println(user.getGirls().get(0).getName());
     }
+
     private static void sortTest() {
         System.out.println("============SortTest=============");
         CustomArrayList<Integer> customArrayList = new CustomArrayList<>();
@@ -92,5 +107,8 @@ public class Main {
         System.out.println("Result of clear()  " + customArrayList);
         System.out.println("=================================");
     }
+
+
+
 
 }
